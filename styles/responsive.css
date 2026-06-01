@@ -1,0 +1,147 @@
+/* =============================================
+   RESPONSIVIDADE - Portal de Notícias
+   Breakpoint principal: 768px (tablet/mobile)
+   ============================================= */
+
+@media (max-width: 768px) {
+
+  /* --- CONTAINER --- */
+  .container {
+    padding-inline: 16px;
+  }
+
+  /* --- HEADER / NAV PRIMÁRIA --- */
+  #primary {
+    padding-block: 16px;
+  }
+
+  /* --- NAV SECUNDÁRIA (categorias) ---
+     Esconde no mobile: ocupa muito espaço horizontal */
+  #secondary {
+    display: none;
+  }
+
+  /* --- MAIN: de grid 2 colunas para 1 coluna --- */
+  main {
+    margin-top: 24px;
+    row-gap: 48px;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "featured"
+      "weekly"
+      "ia"
+      "aside";
+  }
+
+  /* --- SECTION FEATURED ---
+     De lado a lado para empilhado verticalmente */
+  #featured {
+    grid-auto-flow: row !important; /* sobrescreve grid-flow-col */
+  }
+
+  #featured .grid-cols-2 {
+    grid-template-columns: 1fr 1fr; /* mantém 2 colunas nos cards menores */
+    grid-auto-flow: row;
+  }
+
+  /* Card principal ocupa largura total */
+  #featured > figure.card {
+    height: 280px;
+  }
+
+  /* Cards menores ficam um pouco menores */
+  #featured .grid-cols-2 figure.card {
+    height: 180px;
+  }
+
+  /* --- SECTION WEEKLY (mais lidas da semana) ---
+     De 4 colunas fixas para rolagem horizontal */
+  #weekly > div {
+    grid-template-columns: repeat(4, 200px) !important;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    /* Esconde a scrollbar mas permite rolar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  #weekly > div::-webkit-scrollbar {
+    display: none;
+  }
+
+  #weekly img {
+    height: 120px !important;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  /* --- SECTION IA (artigos) ---
+     De linha (imagem + texto) para coluna (texto acima, imagem abaixo) */
+  #IA article {
+    grid-auto-flow: row !important;
+    gap: 12px !important;
+  }
+
+  #IA article div:last-child {
+    order: -1; /* imagem vai para cima */
+  }
+
+  #IA img {
+    width: 100% !important;
+    height: 180px;
+    aspect-ratio: unset !important;
+    object-fit: cover;
+  }
+
+  /* --- ASIDE / "VIU ISSO AQUI?" ---
+     Fica abaixo de tudo, largura total */
+  aside {
+    width: 100%;
+  }
+
+  #ads img {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  /* Artigos da aside ficam lado a lado (imagem pequena + texto) */
+  #more article {
+    grid-auto-flow: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  #more img {
+    width: 64px !important;
+    height: 64px !important;
+    flex-shrink: 0;
+  }
+
+  /* --- HEADERS DAS SECTIONS ---
+     "Ver tudo" fica na mesma linha */
+  section header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* =============================================
+   BREAKPOINT EXTRA PEQUENO: até 480px (celular)
+   ============================================= */
+@media (max-width: 480px) {
+
+  /* Cards menores do featured: 1 coluna */
+  #featured .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+
+  #featured .grid-cols-2 figure.card {
+    height: 160px;
+  }
+
+  /* Artigos da IA: sem imagem grande demais */
+  #IA img {
+    height: 140px;
+  }
+}
